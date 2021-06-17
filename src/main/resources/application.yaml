@@ -1,0 +1,21 @@
+
+app:
+  datasource:
+    jdbc-url: "jdbc:postgresql:holidaybooking"
+    username: "postgres"
+    # todo use an explicit dev profile and prod secrets injection asap
+    password: "mysecretpassword"
+    pool-size: 10
+spring:
+  flyway:
+    clean-disabled: true
+  jmx:
+    enabled: true
+logging:
+  level:
+    root: "info"
+    org.springframework.jdbc: "debug"
+    org.springframework.data: "debug"
+    org.flywaydb: "debug"
+    org.hibernate: "debug"
+#debug: true
