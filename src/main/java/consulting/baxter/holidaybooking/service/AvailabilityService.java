@@ -19,7 +19,7 @@ public class AvailabilityService {
 
     //todo need to retain concept of property
     public List<LocalDate> getAvailableDates(LocalDate start, LocalDate end) {
-        final List<Booking> bookings = bookingDao.findByDateRange_StartDateAfterAndDateRange_EndDateBefore(start, end);
+        final List<Booking> bookings = bookingDao.findBookingsInDateRange(start, end);
         final Set<LocalDate> unavailableDates = bookings.stream().flatMap(booking -> booking.getDateRange().getStartDate().datesUntil(booking.getDateRange().getEndDate())).collect(Collectors.toSet());
         return start.datesUntil(end).filter(date -> !unavailableDates.contains(date)).collect(Collectors.toList());
     }
