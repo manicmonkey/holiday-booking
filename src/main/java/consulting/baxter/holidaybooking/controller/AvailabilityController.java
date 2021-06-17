@@ -1,5 +1,7 @@
 package consulting.baxter.holidaybooking.controller;
 
+import consulting.baxter.holidaybooking.dao.PropertyDao;
+import consulting.baxter.holidaybooking.model.Property;
 import consulting.baxter.holidaybooking.service.AvailabilityService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,21 +15,26 @@ import java.util.List;
 @RestController
 @RequestMapping("/availability")
 public class AvailabilityController {
+    private final PropertyDao propertyDao;
     private final AvailabilityService availabilityService;
 
-    public AvailabilityController(AvailabilityService availabilityService) {
+    public AvailabilityController(PropertyDao propertyDao, AvailabilityService availabilityService) {
+        this.propertyDao = propertyDao;
         this.availabilityService = availabilityService;
     }
 
     @GetMapping
     public List<LocalDate> getAvailableDates(
+        @RequestParam(name = "property")
+            String propertyName,
         @RequestParam(name = "start")
         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
             LocalDate start,
         @RequestParam(name = "end")
         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
             LocalDate end) {
+        final Property property = propertyDao.findByName(propertyName);
         //todo make sure the user can't request a rediculous date range
-        return availabilityService.getAvailableDates(start, end);
+        return availabilityService.getAvailableDates(property, start, end);
     }
 }
