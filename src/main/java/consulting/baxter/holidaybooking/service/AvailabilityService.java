@@ -23,7 +23,7 @@ public class AvailabilityService {
         this.bookingDao = bookingDao;
     }
 
-    //todo consider wrapping these parameters into an object which gives more flexibilty on the predicates (ie including multiple properties)
+    //todo consider wrapping these parameters into an object which gives more flexibility on the predicates (ie including multiple properties)
     public Either<AvailabilityFailure, List<LocalDate>> getAvailableDates(Property property, LocalDate start, LocalDate end) {
         if (start.isAfter(end))
             return Either.left(START_DATE_AFTER_END);
