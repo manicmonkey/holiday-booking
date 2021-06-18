@@ -1,6 +1,7 @@
 package consulting.baxter.holidaybooking.rest;
 
 import consulting.baxter.holidaybooking.data.PropertyDao;
+import consulting.baxter.holidaybooking.rest.model.AvailableDay;
 import consulting.baxter.holidaybooking.service.AvailabilityService;
 import io.vavr.control.Either;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -16,12 +17,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/availability")
 public class AvailabilityController {
-    private final PropertyDao propertyDao;
     private final AvailabilityService availabilityService;
+    private final PropertyDao propertyDao;
 
-    public AvailabilityController(PropertyDao propertyDao, AvailabilityService availabilityService) {
-        this.propertyDao = propertyDao;
+    public AvailabilityController(AvailabilityService availabilityService, PropertyDao propertyDao) {
         this.availabilityService = availabilityService;
+        this.propertyDao = propertyDao;
     }
 
     @GetMapping
@@ -34,14 +35,13 @@ public class AvailabilityController {
         @RequestParam(name = "end")
         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
             LocalDate end) {
-
         return propertyDao.findByName(propertyName)
-            .map(property -> availabilityService.getAvailableDates(property, start, end))
+            .map(property -> availabilityService.getAvailability(property, start, end))
             .map(this::availabilityResultToResponse)
             .orElse(ResponseEntity.badRequest().body(Failure.PROPERTY_NOT_FOUND.toString()));
     }
 
-    private ResponseEntity<Object> availabilityResultToResponse(Either<AvailabilityService.Failure, List<LocalDate>> res) {
+    private ResponseEntity<Object> availabilityResultToResponse(Either<AvailabilityService.Failure, List<AvailableDay>> res) {
         return res.fold(
             AvailabilityController::mapFailure,
             ResponseEntity::ok

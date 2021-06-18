@@ -1,5 +1,7 @@
 package consulting.baxter.holidaybooking.data.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,7 +13,9 @@ import static javax.persistence.CascadeType.ALL;
 @Entity
 @Table(name = "customers")
 @Data
-@NoArgsConstructor
+@Builder
+@NoArgsConstructor //for JPA
+@AllArgsConstructor
 public class CustomerEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
