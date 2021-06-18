@@ -1,20 +1,19 @@
 package consulting.baxter.holidaybooking.rest;
 
 import consulting.baxter.holidaybooking.data.PropertyDao;
-import consulting.baxter.holidaybooking.data.model.Property;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import consulting.baxter.holidaybooking.rest.model.Property;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+@Slf4j
 @RestController
 @RequestMapping("/properties")
 public class PropertyController {
-
-    private static final Logger log = LoggerFactory.getLogger(PropertyController.class);
 
     private final PropertyDao propertyDao;
 
@@ -26,16 +25,16 @@ public class PropertyController {
     @ResponseStatus(HttpStatus.CREATED)
     public void create(@RequestBody Property property) {
         log.info("Creating property: {}", property);
-        propertyDao.save(property);
+        propertyDao.save(property.toNew());
     }
 
     @GetMapping
     public List<Property> get() {
-        return propertyDao.findAll(Sort.by("name"));
+        return propertyDao.findAll(Sort.by("name")).stream().map(Property::from).collect(Collectors.toList());
     }
 
     @GetMapping("/{name}")
     public Property get(@PathVariable String name) {
-        return propertyDao.findByName(name);
+        return propertyDao.findByName(name).map(Property::from).orElse(null);
     }
 }

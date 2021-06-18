@@ -1,14 +1,12 @@
 package consulting.baxter.holidaybooking.data.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "properties")
-public class Property {
+public class PropertyEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -16,15 +14,14 @@ public class Property {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "property")
-    private List<Booking> bookings;
+    private List<BookingEntity> bookings;
 
     // no-args constructor required by JPA
-    protected Property() {
+    protected PropertyEntity() {
     }
 
-    public Property(String name) {
+    public PropertyEntity(String name) {
         this.name = name;
     }
 
@@ -32,7 +29,7 @@ public class Property {
         return id;
     }
 
-    public Property setId(Long id) {
+    public PropertyEntity setId(Long id) {
         this.id = id;
         return this;
     }
@@ -41,7 +38,7 @@ public class Property {
         return name;
     }
 
-    public Property setName(String name) {
+    public PropertyEntity setName(String name) {
         this.name = name;
         return this;
     }
@@ -49,8 +46,8 @@ public class Property {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Property)) return false;
-        Property property = (Property) o;
+        if (!(o instanceof PropertyEntity)) return false;
+        PropertyEntity property = (PropertyEntity) o;
         return Objects.equals(id, property.id) && Objects.equals(name, property.name);
     }
 

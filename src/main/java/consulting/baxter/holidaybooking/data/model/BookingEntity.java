@@ -7,55 +7,55 @@ import static javax.persistence.CascadeType.ALL;
 
 @Entity
 @Table(name = "bookings")
-public class Booking {
+public class BookingEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Embedded
-    private DateRange dateRange;
+    private EmbeddableDateRange dateRange;
 
     @ManyToOne(optional = false, cascade = ALL)
     @JoinColumn(name = "customer_id", nullable = false, updatable = false)
-    private Customer customer;
+    private CustomerEntity customer;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "property_id", nullable = false)
-    private Property property;
+    private PropertyEntity property;
 
     // no-args constructor required by JPA
-    protected Booking() {
+    protected BookingEntity() {
     }
 
-    public Booking(DateRange dateRange, Customer customer, Property property) {
+    public BookingEntity(EmbeddableDateRange dateRange, CustomerEntity customer, PropertyEntity property) {
         this.dateRange = dateRange;
         this.customer = customer;
         this.property = property;
     }
 
-    public DateRange getDateRange() {
+    public EmbeddableDateRange getDateRange() {
         return dateRange;
     }
 
-    public Booking setDateRange(DateRange dateRange) {
+    public BookingEntity setDateRange(EmbeddableDateRange dateRange) {
         this.dateRange = dateRange;
         return this;
     }
 
-    public Customer getCustomer() {
+    public CustomerEntity getCustomer() {
         return customer;
     }
 
-    public Booking setCustomer(Customer customer) {
+    public BookingEntity setCustomer(CustomerEntity customer) {
         this.customer = customer;
         return this;
     }
 
-    public Property getProperty() {
+    public PropertyEntity getProperty() {
         return property;
     }
 
-    public Booking setProperty(Property property) {
+    public BookingEntity setProperty(PropertyEntity property) {
         this.property = property;
         return this;
     }
@@ -63,8 +63,8 @@ public class Booking {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Booking)) return false;
-        Booking booking = (Booking) o;
+        if (!(o instanceof BookingEntity)) return false;
+        BookingEntity booking = (BookingEntity) o;
         return Objects.equals(id, booking.id) && Objects.equals(dateRange, booking.dateRange) && Objects.equals(customer, booking.customer) && Objects.equals(property, booking.property);
     }
 

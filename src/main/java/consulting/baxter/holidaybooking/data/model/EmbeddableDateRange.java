@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 @Embeddable
-public class DateRange {
+public class EmbeddableDateRange {
     @Column(nullable = false)
     private LocalDate startDate;
 
@@ -16,10 +16,10 @@ public class DateRange {
     private LocalDate endDate; //todo make sure this is after startDate!
 
     // no-args constructor required by JPA
-    protected DateRange() {
+    protected EmbeddableDateRange() {
     }
 
-    public DateRange(LocalDate startDate, LocalDate endDate) {
+    public EmbeddableDateRange(LocalDate startDate, LocalDate endDate) {
         Assert.notNull(startDate, "Start Date cannot be null");
         Assert.notNull(endDate, "End Date cannot be null");
         Assert.isTrue(startDate.isBefore(endDate), "Start Date must be before End Date");
@@ -38,8 +38,8 @@ public class DateRange {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof DateRange)) return false;
-        DateRange dateRange = (DateRange) o;
+        if (!(o instanceof EmbeddableDateRange)) return false;
+        EmbeddableDateRange dateRange = (EmbeddableDateRange) o;
         return Objects.equals(startDate, dateRange.startDate) && Objects.equals(endDate, dateRange.endDate);
     }
 

@@ -1,8 +1,8 @@
 package consulting.baxter.holidaybooking.rest;
 
 import consulting.baxter.holidaybooking.data.PropertyDao;
-import consulting.baxter.holidaybooking.data.model.Property;
 import consulting.baxter.holidaybooking.service.AvailabilityService;
+import io.vavr.control.Either;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
-
-import static consulting.baxter.holidaybooking.service.AvailabilityService.AvailabilityFailure.DATE_RANGE_TOO_BIG;
-import static consulting.baxter.holidaybooking.service.AvailabilityService.AvailabilityFailure.START_DATE_AFTER_END;
+import java.util.List;
 
 @RestController
 @RequestMapping("/availability")
@@ -36,23 +34,35 @@ public class AvailabilityController {
         @RequestParam(name = "end")
         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
             LocalDate end) {
-        final Property property = propertyDao.findByName(propertyName);
-        final var availabilityResult = availabilityService.getAvailableDates(property, start, end);
 
-        return availabilityResult.fold(
+        return propertyDao.findByName(propertyName)
+            .map(property -> availabilityService.getAvailableDates(property, start, end))
+            .map(this::availabilityResultToResponse)
+            .orElse(ResponseEntity.badRequest().body(Failure.PROPERTY_NOT_FOUND.toString()));
+    }
+
+    private ResponseEntity<Object> availabilityResultToResponse(Either<AvailabilityService.Failure, List<LocalDate>> res) {
+        return res.fold(
             AvailabilityController::mapFailure,
             ResponseEntity::ok
         );
     }
 
-    private static ResponseEntity<Object> mapFailure(AvailabilityService.AvailabilityFailure failure) {
+    private static ResponseEntity<Object> mapFailure(AvailabilityService.Failure failure) {
+        final var badRequest = ResponseEntity.badRequest();
         switch (failure) {
             case DATE_RANGE_TOO_BIG:
-                return ResponseEntity.badRequest().body(DATE_RANGE_TOO_BIG.toString());
+                return badRequest.body(Failure.DATE_RANGE_TOO_BIG.toString());
             case START_DATE_AFTER_END:
-                return ResponseEntity.badRequest().body(START_DATE_AFTER_END.toString());
+                return badRequest.body(Failure.START_DATE_AFTER_END.toString());
             default:
-                return ResponseEntity.badRequest().build();
+                return badRequest.build();
         }
+    }
+
+    enum Failure {
+        DATE_RANGE_TOO_BIG,
+        START_DATE_AFTER_END,
+        PROPERTY_NOT_FOUND
     }
 }
