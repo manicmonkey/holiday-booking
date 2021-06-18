@@ -1,4 +1,4 @@
-package consulting.baxter.holidaybooking.model;
+package consulting.baxter.holidaybooking.data.model;
 
 import org.springframework.util.Assert;
 

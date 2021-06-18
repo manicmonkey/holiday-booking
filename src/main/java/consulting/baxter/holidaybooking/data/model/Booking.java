@@ -1,6 +1,4 @@
-package consulting.baxter.holidaybooking.model;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
+package consulting.baxter.holidaybooking.data.model;
 
 import javax.persistence.*;
 import java.util.Objects;

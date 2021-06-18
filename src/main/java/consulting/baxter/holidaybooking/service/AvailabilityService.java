@@ -1,8 +1,8 @@
 package consulting.baxter.holidaybooking.service;
 
-import consulting.baxter.holidaybooking.dao.BookingDao;
-import consulting.baxter.holidaybooking.model.Booking;
-import consulting.baxter.holidaybooking.model.Property;
+import consulting.baxter.holidaybooking.data.BookingDao;
+import consulting.baxter.holidaybooking.data.model.Booking;
+import consulting.baxter.holidaybooking.data.model.Property;
 import io.vavr.control.Either;
 import org.springframework.stereotype.Component;
 

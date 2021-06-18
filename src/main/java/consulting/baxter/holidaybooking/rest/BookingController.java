@@ -1,14 +1,13 @@
-package consulting.baxter.holidaybooking.controller;
+package consulting.baxter.holidaybooking.rest;
 
-import consulting.baxter.holidaybooking.dao.BookingDao;
-import consulting.baxter.holidaybooking.model.Booking;
+import consulting.baxter.holidaybooking.data.BookingDao;
+import consulting.baxter.holidaybooking.data.model.Booking;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Random;
 
 @RestController
 @RequestMapping("/bookings")

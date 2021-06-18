@@ -1,7 +1,7 @@
-package consulting.baxter.holidaybooking.controller;
+package consulting.baxter.holidaybooking.rest;
 
-import consulting.baxter.holidaybooking.dao.PropertyDao;
-import consulting.baxter.holidaybooking.model.Property;
+import consulting.baxter.holidaybooking.data.PropertyDao;
+import consulting.baxter.holidaybooking.data.model.Property;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Sort;

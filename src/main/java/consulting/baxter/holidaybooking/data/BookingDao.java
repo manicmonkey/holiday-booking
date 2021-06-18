@@ -1,6 +1,6 @@
-package consulting.baxter.holidaybooking.dao;
+package consulting.baxter.holidaybooking.data;
 
-import consulting.baxter.holidaybooking.model.Booking;
+import consulting.baxter.holidaybooking.data.model.Booking;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
