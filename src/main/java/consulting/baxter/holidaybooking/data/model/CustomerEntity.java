@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.util.Set;
 
 import static javax.persistence.CascadeType.ALL;
@@ -25,6 +26,7 @@ public class CustomerEntity {
     private String name;
 
     @Column(nullable = false)
+    @Email
     private String email;
 
     @Column(nullable = false)
