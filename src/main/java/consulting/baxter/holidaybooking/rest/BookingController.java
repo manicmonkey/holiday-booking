@@ -44,11 +44,9 @@ public class BookingController {
             .map(propertyEntity -> new BookingEntity(booking.getDateRange().toEmbeddable(), customerEntity, propertyEntity))
             .map(bookingDao::save)
             .map(Booking::from)
-            .map(bookingEntityToResponse)
+            .map(ResponseEntity::<Object>ok)
             .orElse(ResponseEntity.badRequest().body(Failure.PROPERTY_NOT_FOUND.toString()));
     }
-
-    private final Function<Booking, ResponseEntity<Object>> bookingEntityToResponse = ResponseEntity::ok;
 
     @GetMapping
     public List<Booking> get() {
