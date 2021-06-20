@@ -4,22 +4,51 @@ import consulting.baxter.holidaybooking.rest.model.Booking;
 import consulting.baxter.holidaybooking.rest.model.Customer;
 import consulting.baxter.holidaybooking.rest.model.DateRange;
 import consulting.baxter.holidaybooking.rest.model.Property;
-import lombok.val;
-import org.junit.Assert;
+import io.restassured.RestAssured;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import org.springframework.web.client.RestTemplate;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.utility.DockerImageName;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
 import static java.time.temporal.ChronoUnit.WEEKS;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@Testcontainers
 public class BookingControllerIntegrationTest {
+
+    private static final DockerImageName POSTGRES_IMAGE_NAME = DockerImageName.parse("postgres:13.3");
+
+    @Container
+    static PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>(POSTGRES_IMAGE_NAME);
+
+    @DynamicPropertySource
+    static void datasourceConfiguration(DynamicPropertyRegistry registry) {
+        registry.add("app.datasource.jdbc-url", postgreSQLContainer::getJdbcUrl);
+        registry.add("app.datasource.username", postgreSQLContainer::getUsername);
+        registry.add("app.datasource.password", postgreSQLContainer::getPassword);
+    }
+
+    @LocalServerPort
+    private int serverPort;
+
+    @BeforeEach
+    public void setupRestAssured() {
+        RestAssured.port = serverPort;
+    }
 
     @Test
     void findsNoBookings() {
@@ -50,7 +79,7 @@ public class BookingControllerIntegrationTest {
         final Property property = Property.builder().name("batcave").build();
 
         WebTestClient.bindToServer()
-            .baseUrl("http://localhost:8080").build()
+            .baseUrl("http://localhost:" + serverPort).build()
             .post().uri("/properties")
             .bodyValue(property)
             .exchange()
