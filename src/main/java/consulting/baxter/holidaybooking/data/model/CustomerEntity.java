@@ -1,19 +1,18 @@
 package consulting.baxter.holidaybooking.data.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import java.util.Objects;
 import java.util.Set;
 
 import static javax.persistence.CascadeType.ALL;
 
 @Entity
 @Table(name = "customers")
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor //for JPA
 @AllArgsConstructor
@@ -85,25 +84,25 @@ public class CustomerEntity {
 //        this.bookings = bookings;
 //    }
 //
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (!(o instanceof CustomerEntity)) return false;
-//        CustomerEntity customer = (CustomerEntity) o;
-//        return Objects.equals(id, customer.id) && Objects.equals(name, customer.name) && Objects.equals(address, customer.address);
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(id, name, address);
-//    }
-//
-//    @Override
-//    public String toString() {
-//        return "Customer{" +
-//            "id=" + id +
-//            ", name='" + name + '\'' +
-//            ", address='" + address + '\'' +
-//            '}';
-//    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CustomerEntity)) return false;
+        CustomerEntity customer = (CustomerEntity) o;
+        return Objects.equals(id, customer.id) && Objects.equals(name, customer.name) && Objects.equals(address, customer.address);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, address);
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+            "id=" + id +
+            ", name='" + name + '\'' +
+            ", address='" + address + '\'' +
+            '}';
+    }
 }
