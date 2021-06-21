@@ -55,6 +55,8 @@ public class AvailabilityController {
                 return badRequest.body(Failure.DATE_RANGE_TOO_BIG.toString());
             case START_DATE_AFTER_END:
                 return badRequest.body(Failure.START_DATE_AFTER_END.toString());
+            case START_DATE_IN_PAST:
+                return badRequest.body(Failure.START_DATE_IN_PAST.toString());
             default:
                 return badRequest.build();
         }
@@ -63,6 +65,7 @@ public class AvailabilityController {
     enum Failure {
         DATE_RANGE_TOO_BIG,
         START_DATE_AFTER_END,
+        START_DATE_IN_PAST,
         PROPERTY_NOT_FOUND
     }
 }

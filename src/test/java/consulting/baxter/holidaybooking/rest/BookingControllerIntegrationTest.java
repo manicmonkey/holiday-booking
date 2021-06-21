@@ -1,13 +1,12 @@
-package consulting.baxter.holidaybooking;
+package consulting.baxter.holidaybooking.rest;
 
+import consulting.baxter.holidaybooking.InsertDummyData;
 import consulting.baxter.holidaybooking.rest.model.Booking;
 import consulting.baxter.holidaybooking.rest.model.Customer;
 import consulting.baxter.holidaybooking.rest.model.DateRange;
 import consulting.baxter.holidaybooking.rest.model.Property;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.DynamicPropertyRegistry;
@@ -28,6 +27,7 @@ import static org.hamcrest.Matchers.is;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Testcontainers
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class BookingControllerIntegrationTest {
 
     private static final DockerImageName POSTGRES_IMAGE_NAME = DockerImageName.parse("postgres:13.3");
@@ -51,6 +51,7 @@ public class BookingControllerIntegrationTest {
     }
 
     @Test
+    @Order(1) // check for no bookings before we execute other tests
     void findsNoBookings() {
         when()
             .get("/bookings")

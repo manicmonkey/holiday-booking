@@ -1,6 +1,7 @@
 package consulting.baxter.holidaybooking.data.model;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Objects;
 
 import static javax.persistence.CascadeType.ALL;
@@ -40,6 +41,14 @@ public class BookingEntity {
     public BookingEntity setDateRange(EmbeddableDateRange dateRange) {
         this.dateRange = dateRange;
         return this;
+    }
+
+    public LocalDate getStartDate() {
+        return dateRange.getStartDate();
+    }
+
+    public LocalDate getEndDate() {
+        return dateRange.getEndDate();
     }
 
     public CustomerEntity getCustomer() {
