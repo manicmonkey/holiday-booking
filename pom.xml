@@ -242,6 +242,7 @@
             <name>James Baxter</name>
             <email>j.w.baxter@gmail.com</email>
             <url>https://jamesbaxter.com</url>
+            <timezone>Australia/Brisbane</timezone>
         </developer>
     </developers>
 
