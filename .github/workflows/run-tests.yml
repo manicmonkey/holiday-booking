@@ -1,4 +1,4 @@
-name: Holiday Booking CI
+name: Holiday Booking Tests
 
 on: [push]
 
