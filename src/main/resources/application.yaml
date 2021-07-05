@@ -5,6 +5,9 @@ app:
     # todo use an explicit dev profile and prod secrets injection asap
     password: "mysecretpassword"
     pool-size: 10
+server:
+  servlet:
+    contextPath: /api
 spring:
   flyway:
     clean-disabled: true
