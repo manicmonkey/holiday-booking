@@ -1,9 +1,4 @@
 import {Component} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-
-type Property = {
-  name: string
-}
 
 @Component({
   selector: 'app-root',
@@ -11,14 +6,7 @@ type Property = {
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(private httpClient: HttpClient) {
+  constructor() {
   }
-  title = 'frontend';
-  loadProperties() {
-    this.httpClient
-      .get<Property>("/api/properties")
-      .subscribe(resp => {
-        console.log("resp", resp)
-      })
-  }
+  title = 'Holiday Booking';
 }

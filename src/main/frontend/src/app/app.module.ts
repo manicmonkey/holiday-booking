@@ -4,17 +4,23 @@ import {HttpClientModule} from "@angular/common/http";
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
+import { PropertyListComponent } from './property-list/property-list.component';
+import {PropertiesClientService, PropertiesClientServiceImpl} from "src/app/properties-client.service";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PropertyListComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [{
+    provide: PropertiesClientService,
+    useClass: PropertiesClientServiceImpl
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule {

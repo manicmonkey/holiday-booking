@@ -30,6 +30,7 @@ public class PropertyController {
 
     @GetMapping
     public List<Property> get() {
+        log.info("Getting all properties");
         return propertyDao.findAll(Sort.by("name")).stream().map(Property::from).collect(Collectors.toList());
     }
 
