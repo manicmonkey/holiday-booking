@@ -1,6 +1,13 @@
-import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { AppComponent } from './app.component';
+import {TestBed} from '@angular/core/testing';
+import {RouterTestingModule} from '@angular/router/testing';
+import {AppComponent} from './app.component';
+import {AvailabilityListComponent} from "src/app/availability-list/availability-list.component";
+import {PropertyListComponent} from "src/app/property-list/property-list.component";
+import {PropertiesClientService} from "src/app/properties-client.service";
+import {Observable, of} from "rxjs";
+import {Property} from "src/app/property";
+import {AvailabilityClientService} from "src/app/availability-client.service";
+import {AvailableDay} from "src/app/available-day";
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -9,8 +16,20 @@ describe('AppComponent', () => {
         RouterTestingModule
       ],
       declarations: [
-        AppComponent
+        AppComponent,
+        AvailabilityListComponent,
+        PropertyListComponent
       ],
+      providers: [
+        {
+          provide: PropertiesClientService,
+          useClass: MockPropertiesClientService
+        },
+        {
+          provide: AvailabilityClientService,
+          useClass: MockAvailabilityClientService
+        }
+      ]
     }).compileComponents();
   });
 
@@ -24,6 +43,18 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.title').textContent).toContain('Welcome to Holiday Booking');
+    expect(compiled.querySelector('h1').textContent).toContain('Welcome to Holiday Booking');
   });
 });
+
+class MockPropertiesClientService implements PropertiesClientService {
+  get(): Observable<Array<Property>> {
+    return of(Array({name: 'test-property'}));
+  }
+}
+
+class MockAvailabilityClientService implements AvailabilityClientService {
+  get(property: Property, checkIn: string, checkOut: string): Observable<Array<AvailableDay>> {
+    return of(Array());
+  }
+}

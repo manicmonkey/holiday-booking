@@ -1,6 +1,10 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { AvailabilityListComponent } from './availability-list.component';
+import {AvailabilityListComponent} from './availability-list.component';
+import {AvailabilityClientService} from "src/app/availability-client.service";
+import {Property} from "src/app/property";
+import {Observable, of} from "rxjs";
+import {AvailableDay} from "src/app/available-day";
 
 describe('AvailabilityListComponent', () => {
   let component: AvailabilityListComponent;
@@ -8,7 +12,13 @@ describe('AvailabilityListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AvailabilityListComponent ]
+      declarations: [ AvailabilityListComponent ],
+      providers: [
+        {
+          provide: AvailabilityClientService,
+          useClass: MockAvailabilityClientService
+        }
+      ]
     })
     .compileComponents();
   });
@@ -24,3 +34,9 @@ describe('AvailabilityListComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+
+class MockAvailabilityClientService implements AvailabilityClientService {
+  get(property: Property, checkIn: string, checkOut: string): Observable<Array<AvailableDay>> {
+    return of(Array());
+  }
+}
