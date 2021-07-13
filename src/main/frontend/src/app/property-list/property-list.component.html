@@ -1,6 +1,4 @@
-<span class="title">Properties list</span>
-<ul>
-  <li *ngFor="let property of properties">
-    <span class="propertyName">{{property.name}}</span>
-  </li>
-</ul>
+<ng-template *ngFor="let property of properties"
+             [ngTemplateOutlet]="template"
+             [ngTemplateOutletContext]="{$implicit: property}">
+</ng-template>

@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {Property} from "src/app/property";
 
 @Component({
   selector: 'app-root',
@@ -9,4 +10,5 @@ export class AppComponent {
   constructor() {
   }
   title = 'Holiday Booking';
+  selectedProperty?: Property;
 }

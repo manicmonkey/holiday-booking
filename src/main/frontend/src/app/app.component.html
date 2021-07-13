@@ -1,5 +1,23 @@
-<h1 class="title">Welcome to {{title}}</h1>
+<h1>Welcome to {{title}}</h1>
 
-<app-property-list></app-property-list>
+<h2>Properties</h2>
+
+<ol>
+  <property-list>
+    <ng-template let-property>
+      <li (click)="selectedProperty = property"><span class="propertyName">{{property.name}}</span></li>
+    </ng-template>
+  </property-list>
+</ol>
+
+<h2>Availability</h2>
+
+<ol>
+  <availability-list [property]="selectedProperty">
+    <ng-template let-availableDay>
+      <li>{{selectedProperty?.name}} - {{availableDay.date}} - {{availableDay.rate}}</li>
+    </ng-template>
+  </availability-list>
+</ol>
 
 <router-outlet></router-outlet>
