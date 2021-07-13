@@ -2,22 +2,23 @@
 
 <h2>Properties</h2>
 
-<ol>
-  <property-list>
-    <ng-template let-property>
-      <li (click)="selectedProperty = property"><span class="propertyName">{{property.name}}</span></li>
-    </ng-template>
-  </property-list>
-</ol>
+<property-list>
+  <ng-template let-property>
+    <input id="{{property.name}}" type="radio" name="property" (click)="selectedProperty = property"
+           value="{{property.name}}"/>
+    <label for="{{property.name}}">{{property.name}}</label>
+    <br/>
+  </ng-template>
+</property-list>
 
 <h2>Availability</h2>
 
-<ol>
+<ul>
   <availability-list [property]="selectedProperty">
     <ng-template let-availableDay>
       <li>{{selectedProperty?.name}} - {{availableDay.date}} - {{availableDay.rate}}</li>
     </ng-template>
   </availability-list>
-</ol>
+</ul>
 
 <router-outlet></router-outlet>
