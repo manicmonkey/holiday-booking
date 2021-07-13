@@ -4,6 +4,7 @@ import consulting.baxter.holidaybooking.data.PropertyDao;
 import consulting.baxter.holidaybooking.rest.model.AvailableDay;
 import consulting.baxter.holidaybooking.service.AvailabilityService;
 import io.vavr.control.Either;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalDate;
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/availability")
 public class AvailabilityController {
@@ -35,6 +37,7 @@ public class AvailabilityController {
         @RequestParam(name = "end")
         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
             LocalDate end) {
+        log.info("Getting availability for property [{}] between [{}] and [{}]", propertyName, start, end);
         return propertyDao.findByName(propertyName)
             .map(property -> availabilityService.getAvailability(property, start, end))
             .map(this::availabilityResultToResponse)
