@@ -244,7 +244,7 @@
                                 </goals>
                                 <phase>integration-test</phase>
                                 <configuration>
-                                    <arguments>run-script test -- --watch=false</arguments>
+                                    <arguments>run-script test-noninteractive</arguments>
                                 </configuration>
                             </execution>
                             <execution>
