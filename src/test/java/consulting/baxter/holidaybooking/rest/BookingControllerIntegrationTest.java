@@ -54,7 +54,7 @@ public class BookingControllerIntegrationTest {
     @Order(1) // check for no bookings before we execute other tests
     void findsNoBookings() {
         when()
-            .get("/bookings")
+            .get("/api/bookings")
         .then()
             .body("isEmpty()", is(true));
     }
@@ -69,7 +69,7 @@ public class BookingControllerIntegrationTest {
             .body(booking)
             .contentType("application/json")
         .when()
-            .post("/bookings/" + unknownProperty.getName())
+            .post("/api/bookings/" + unknownProperty.getName())
         .then()
             .statusCode(400)
             .body(equalTo("PROPERTY_NOT_FOUND"));
@@ -81,7 +81,7 @@ public class BookingControllerIntegrationTest {
 
         WebTestClient.bindToServer()
             .baseUrl("http://localhost:" + serverPort).build()
-            .post().uri("/properties")
+            .post().uri("/api/properties")
             .bodyValue(property)
             .exchange()
             .expectStatus().isCreated();
@@ -93,12 +93,12 @@ public class BookingControllerIntegrationTest {
             .body(booking)
             .contentType("application/json")
         .when()
-            .post("/bookings/" + property.getName())
+            .post("/api/bookings/" + property.getName())
         .then()
             .statusCode(201);
 
         final Booking[] bookings = when()
-            .get("/bookings")
+            .get("/api/bookings")
             .as(Booking[].class);
 
         Assertions.assertArrayEquals(new Booking[]{booking}, bookings);
