@@ -17,4 +17,8 @@ export class AppComponent {
     start: new FormControl(),
     end: new FormControl()
   });
+
+  canGetAvailability(): boolean {
+    return this.selectedProperty && this.range.controls.start.value && this.range.controls.end.value;
+  }
 }
