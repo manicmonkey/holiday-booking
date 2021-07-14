@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {Property} from "src/app/property";
+import {FormControl, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-root',
@@ -11,4 +12,9 @@ export class AppComponent {
   }
   title = 'Holiday Booking';
   selectedProperty?: Property;
+
+  range = new FormGroup({
+    start: new FormControl(),
+    end: new FormControl()
+  });
 }

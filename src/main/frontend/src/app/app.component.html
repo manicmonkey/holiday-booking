@@ -1,20 +1,35 @@
 <h1>Welcome to {{title}}</h1>
 
-<h2>Properties</h2>
+<mat-form-field appearance="fill" [style.width.px]="255">
+  <mat-label>Where would you like to stay?</mat-label>
+  <mat-select [(value)]="selectedProperty">
+    <property-list>
+      <ng-template let-property>
+        <mat-option [value]="property">{{property.name}}</mat-option>
+      </ng-template>
+    </property-list>
+  </mat-select>
+</mat-form-field>
 
-<property-list>
-  <ng-template let-property>
-    <input id="{{property.name}}" type="radio" name="property" (click)="selectedProperty = property"
-           value="{{property.name}}"/>
-    <label for="{{property.name}}">{{property.name}}</label>
-    <br/>
-  </ng-template>
-</property-list>
+<br/>
+
+<mat-form-field appearance="fill">
+  <mat-label>When do you want to stay?</mat-label>
+  <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+    <input matStartDate formControlName="start" placeholder="Start date">
+    <input matEndDate formControlName="end" placeholder="End date">
+  </mat-date-range-input>
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-date-range-picker #picker></mat-date-range-picker>
+
+  <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+  <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
+</mat-form-field>
 
 <h2>Availability</h2>
 
 <ul>
-  <availability-list [property]="selectedProperty">
+  <availability-list [property]="selectedProperty" [checkIn]="range.controls.start.value" [checkOut]="range.controls.end.value">
     <ng-template let-availableDay>
       <li>{{selectedProperty?.name}} - {{availableDay.date}} - {{availableDay.rate}}</li>
     </ng-template>
