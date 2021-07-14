@@ -14,4 +14,4 @@ This is a demo project based on the following technologies:
 
 The [maven site plugin](https://maven.apache.org/plugins/maven-site-plugin/) is used to build documentation about the project, and a github action [deploys it here](https://manicmonkey.github.io/holiday-booking/).
 
-![](https://github.com/manicmonkey/holiday-booking/actions/workflows/run-tests.yml/badge.svg)
+[![Holiday Booking Tests](https://github.com/manicmonkey/holiday-booking/actions/workflows/run-tests.yml/badge.svg)](https://github.com/manicmonkey/holiday-booking/actions/workflows/run-tests.yml)
