@@ -1,5 +1,8 @@
 package consulting.baxter.holidaybooking.data.model;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -8,6 +11,7 @@ import static javax.persistence.CascadeType.ALL;
 
 @Entity
 @Table(name = "bookings")
+@NoArgsConstructor(access = AccessLevel.PROTECTED) //for JPA
 public class BookingEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,10 +27,6 @@ public class BookingEntity {
     @ManyToOne(optional = false)
     @JoinColumn(name = "property_id", nullable = false)
     private PropertyEntity property;
-
-    // no-args constructor required by JPA
-    protected BookingEntity() {
-    }
 
     public BookingEntity(EmbeddableDateRange dateRange, CustomerEntity customer, PropertyEntity property) {
         this.dateRange = dateRange;

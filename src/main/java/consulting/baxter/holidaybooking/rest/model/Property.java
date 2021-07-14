@@ -10,11 +10,12 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 public class Property {
     String name;
+    String address;
 
     public static Property from(PropertyEntity propertyEntity) {
-        return new Property(propertyEntity.getName());
+        return new Property(propertyEntity.getName(), propertyEntity.getAddress());
     }
     public PropertyEntity toNew() {
-        return new PropertyEntity(name);
+        return new PropertyEntity(name, address);
     }
 }

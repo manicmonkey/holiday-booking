@@ -22,7 +22,7 @@ import static org.mockito.Mockito.when;
 
 public class AvailabilityServiceTest {
 
-    private static final PropertyEntity dummyProperty = new PropertyEntity("dummyProperty");
+    private static final PropertyEntity dummyProperty = new PropertyEntity("dummyProperty", "dummyAddress");
 
     @Test
     void checksDateNotInPast() {

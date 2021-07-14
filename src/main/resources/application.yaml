@@ -16,8 +16,11 @@ spring:
 logging:
   level:
     root: "info"
-    org.springframework.jdbc: "info"
-    org.springframework.data: "info"
+    org:
+      springframework:
+        jdbc: "info"
+        data: "info"
     org.flywaydb: "info"
     org.hibernate: "info"
+    consulting.baxter.holidaybooking: "debug"
 #debug: true

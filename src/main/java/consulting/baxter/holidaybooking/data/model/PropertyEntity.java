@@ -1,66 +1,56 @@
 package consulting.baxter.holidaybooking.data.model;
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "properties")
+@NoArgsConstructor
 public class PropertyEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, unique = true)
+    @Getter
+    @Setter
     private String name;
+
+    @Column(nullable = false)
+    @Getter
+    @Setter
+    private String address;
 
     @OneToMany(mappedBy = "property")
     private List<BookingEntity> bookings;
 
-    // no-args constructor required by JPA
-    protected PropertyEntity() {
-    }
-
-    public PropertyEntity(String name) {
+    public PropertyEntity(String name, String address) {
         this.name = name;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public PropertyEntity setId(Long id) {
-        this.id = id;
-        return this;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public PropertyEntity setName(String name) {
-        this.name = name;
-        return this;
+        this.address = address;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof PropertyEntity)) return false;
-        PropertyEntity property = (PropertyEntity) o;
-        return Objects.equals(id, property.id) && Objects.equals(name, property.name);
+        PropertyEntity that = (PropertyEntity) o;
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(address, that.address);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
+        return Objects.hash(id, name, address);
     }
 
     @Override
     public String toString() {
-        return "Property{" +
+        return "PropertyEntity{" +
             "id=" + id +
             ", name='" + name + '\'' +
+            ", address='" + address + '\'' +
             '}';
     }
 }

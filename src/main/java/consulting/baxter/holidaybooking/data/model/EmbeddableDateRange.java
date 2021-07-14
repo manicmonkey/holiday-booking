@@ -1,5 +1,7 @@
 package consulting.baxter.holidaybooking.data.model;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.springframework.util.Assert;
 
 import javax.persistence.Column;
@@ -8,16 +10,13 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 @Embeddable
+@NoArgsConstructor(access = AccessLevel.PROTECTED) //for JPA
 public class EmbeddableDateRange {
     @Column(nullable = false)
     private LocalDate startDate;
 
     @Column(nullable = false)
     private LocalDate endDate; //todo make sure this is after startDate!
-
-    // no-args constructor required by JPA
-    protected EmbeddableDateRange() {
-    }
 
     public EmbeddableDateRange(LocalDate startDate, LocalDate endDate) {
         Assert.notNull(startDate, "Start Date cannot be null");
