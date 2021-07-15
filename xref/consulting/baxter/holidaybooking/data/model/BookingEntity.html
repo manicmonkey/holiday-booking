@@ -10,33 +10,33 @@
 
 <a class="jxr_linenumber" name="1" href="#1">1</a>   <strong class="jxr_keyword">package</strong> consulting.baxter.holidaybooking.data.model;
 <a class="jxr_linenumber" name="2" href="#2">2</a>   
-<a class="jxr_linenumber" name="3" href="#3">3</a>   <strong class="jxr_keyword">import</strong> javax.persistence.*;
-<a class="jxr_linenumber" name="4" href="#4">4</a>   <strong class="jxr_keyword">import</strong> java.time.LocalDate;
-<a class="jxr_linenumber" name="5" href="#5">5</a>   <strong class="jxr_keyword">import</strong> java.util.Objects;
-<a class="jxr_linenumber" name="6" href="#6">6</a>   
-<a class="jxr_linenumber" name="7" href="#7">7</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> javax.persistence.CascadeType.ALL;
-<a class="jxr_linenumber" name="8" href="#8">8</a>   
-<a class="jxr_linenumber" name="9" href="#9">9</a>   @Entity
-<a class="jxr_linenumber" name="10" href="#10">10</a>  @Table(name = <span class="jxr_string">"bookings"</span>)
-<a class="jxr_linenumber" name="11" href="#11">11</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../consulting/baxter/holidaybooking/data/model/BookingEntity.html">BookingEntity</a> {
-<a class="jxr_linenumber" name="12" href="#12">12</a>      @Id
-<a class="jxr_linenumber" name="13" href="#13">13</a>      @GeneratedValue(strategy = GenerationType.IDENTITY)
-<a class="jxr_linenumber" name="14" href="#14">14</a>      <strong class="jxr_keyword">private</strong> Long id;
-<a class="jxr_linenumber" name="15" href="#15">15</a>  
-<a class="jxr_linenumber" name="16" href="#16">16</a>      @Embedded
-<a class="jxr_linenumber" name="17" href="#17">17</a>      <strong class="jxr_keyword">private</strong> <a href="../../../../../consulting/baxter/holidaybooking/data/model/EmbeddableDateRange.html">EmbeddableDateRange</a> dateRange;
-<a class="jxr_linenumber" name="18" href="#18">18</a>  
-<a class="jxr_linenumber" name="19" href="#19">19</a>      @ManyToOne(optional = false, cascade = ALL)
-<a class="jxr_linenumber" name="20" href="#20">20</a>      @JoinColumn(name = <span class="jxr_string">"customer_id"</span>, nullable = false, updatable = false)
-<a class="jxr_linenumber" name="21" href="#21">21</a>      <strong class="jxr_keyword">private</strong> <a href="../../../../../consulting/baxter/holidaybooking/data/model/CustomerEntity.html">CustomerEntity</a> customer;
+<a class="jxr_linenumber" name="3" href="#3">3</a>   <strong class="jxr_keyword">import</strong> lombok.AccessLevel;
+<a class="jxr_linenumber" name="4" href="#4">4</a>   <strong class="jxr_keyword">import</strong> lombok.NoArgsConstructor;
+<a class="jxr_linenumber" name="5" href="#5">5</a>   
+<a class="jxr_linenumber" name="6" href="#6">6</a>   <strong class="jxr_keyword">import</strong> javax.persistence.*;
+<a class="jxr_linenumber" name="7" href="#7">7</a>   <strong class="jxr_keyword">import</strong> java.time.LocalDate;
+<a class="jxr_linenumber" name="8" href="#8">8</a>   <strong class="jxr_keyword">import</strong> java.util.Objects;
+<a class="jxr_linenumber" name="9" href="#9">9</a>   
+<a class="jxr_linenumber" name="10" href="#10">10</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> javax.persistence.CascadeType.ALL;
+<a class="jxr_linenumber" name="11" href="#11">11</a>  
+<a class="jxr_linenumber" name="12" href="#12">12</a>  @Entity
+<a class="jxr_linenumber" name="13" href="#13">13</a>  @Table(name = <span class="jxr_string">"bookings"</span>)
+<a class="jxr_linenumber" name="14" href="#14">14</a>  @NoArgsConstructor(access = AccessLevel.PROTECTED) <em class="jxr_comment">//for JPA</em>
+<a class="jxr_linenumber" name="15" href="#15">15</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../consulting/baxter/holidaybooking/data/model/BookingEntity.html">BookingEntity</a> {
+<a class="jxr_linenumber" name="16" href="#16">16</a>      @Id
+<a class="jxr_linenumber" name="17" href="#17">17</a>      @GeneratedValue(strategy = GenerationType.IDENTITY)
+<a class="jxr_linenumber" name="18" href="#18">18</a>      <strong class="jxr_keyword">private</strong> Long id;
+<a class="jxr_linenumber" name="19" href="#19">19</a>  
+<a class="jxr_linenumber" name="20" href="#20">20</a>      @Embedded
+<a class="jxr_linenumber" name="21" href="#21">21</a>      <strong class="jxr_keyword">private</strong> <a href="../../../../../consulting/baxter/holidaybooking/data/model/EmbeddableDateRange.html">EmbeddableDateRange</a> dateRange;
 <a class="jxr_linenumber" name="22" href="#22">22</a>  
-<a class="jxr_linenumber" name="23" href="#23">23</a>      @ManyToOne(optional = false)
-<a class="jxr_linenumber" name="24" href="#24">24</a>      @JoinColumn(name = <span class="jxr_string">"property_id"</span>, nullable = false)
-<a class="jxr_linenumber" name="25" href="#25">25</a>      <strong class="jxr_keyword">private</strong> <a href="../../../../../consulting/baxter/holidaybooking/data/model/PropertyEntity.html">PropertyEntity</a> property;
+<a class="jxr_linenumber" name="23" href="#23">23</a>      @ManyToOne(optional = false, cascade = ALL)
+<a class="jxr_linenumber" name="24" href="#24">24</a>      @JoinColumn(name = <span class="jxr_string">"customer_id"</span>, nullable = false, updatable = false)
+<a class="jxr_linenumber" name="25" href="#25">25</a>      <strong class="jxr_keyword">private</strong> <a href="../../../../../consulting/baxter/holidaybooking/data/model/CustomerEntity.html">CustomerEntity</a> customer;
 <a class="jxr_linenumber" name="26" href="#26">26</a>  
-<a class="jxr_linenumber" name="27" href="#27">27</a>      <em class="jxr_comment">// no-args constructor required by JPA</em>
-<a class="jxr_linenumber" name="28" href="#28">28</a>      <strong class="jxr_keyword">protected</strong> <a href="../../../../../consulting/baxter/holidaybooking/data/model/BookingEntity.html">BookingEntity</a>() {
-<a class="jxr_linenumber" name="29" href="#29">29</a>      }
+<a class="jxr_linenumber" name="27" href="#27">27</a>      @ManyToOne(optional = false)
+<a class="jxr_linenumber" name="28" href="#28">28</a>      @JoinColumn(name = <span class="jxr_string">"property_id"</span>, nullable = false)
+<a class="jxr_linenumber" name="29" href="#29">29</a>      <strong class="jxr_keyword">private</strong> <a href="../../../../../consulting/baxter/holidaybooking/data/model/PropertyEntity.html">PropertyEntity</a> property;
 <a class="jxr_linenumber" name="30" href="#30">30</a>  
 <a class="jxr_linenumber" name="31" href="#31">31</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../../consulting/baxter/holidaybooking/data/model/BookingEntity.html">BookingEntity</a>(<a href="../../../../../consulting/baxter/holidaybooking/data/model/EmbeddableDateRange.html">EmbeddableDateRange</a> dateRange, <a href="../../../../../consulting/baxter/holidaybooking/data/model/CustomerEntity.html">CustomerEntity</a> customer, <a href="../../../../../consulting/baxter/holidaybooking/data/model/PropertyEntity.html">PropertyEntity</a> property) {
 <a class="jxr_linenumber" name="32" href="#32">32</a>          <strong class="jxr_keyword">this</strong>.dateRange = dateRange;
