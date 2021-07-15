@@ -14,7 +14,7 @@ public class DateRange {
     LocalDate from;
     LocalDate to;
 
-    public static DateRange from(EmbeddableDateRange dateRange) {
+    static DateRange from(EmbeddableDateRange dateRange) {
         return new DateRange(dateRange.getStartDate(), dateRange.getEndDate());
     }
 

@@ -1,10 +1,7 @@
 package consulting.baxter.holidaybooking.rest;
 
 import consulting.baxter.holidaybooking.InsertDummyData;
-import consulting.baxter.holidaybooking.rest.model.Booking;
-import consulting.baxter.holidaybooking.rest.model.Customer;
-import consulting.baxter.holidaybooking.rest.model.DateRange;
-import consulting.baxter.holidaybooking.rest.model.Property;
+import consulting.baxter.holidaybooking.rest.model.*;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,6 +14,7 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import static io.restassured.RestAssured.given;
@@ -51,11 +49,12 @@ public class BookingControllerIntegrationTest {
     }
 
     @Test
-    @Order(1) // check for no bookings before we execute other tests
+    @Order(1)
+        // check for no bookings before we execute other tests
     void findsNoBookings() {
         when()
             .get("/api/bookings")
-        .then()
+            .then()
             .body("isEmpty()", is(true));
     }
 
@@ -68,16 +67,21 @@ public class BookingControllerIntegrationTest {
         given()
             .body(booking)
             .contentType("application/json")
-        .when()
+            .when()
             .post("/api/bookings/" + unknownProperty.getName())
-        .then()
+            .then()
             .statusCode(400)
             .body(equalTo("PROPERTY_NOT_FOUND"));
     }
 
     @Test
     void createsBooking() {
-        final Property property = Property.builder().name("batcave").build();
+        final Property property = Property.builder()
+            .name("batcave")
+            .address("Gotham City")
+            .location(GeoLocation.builder()
+                .longitude(new BigDecimal("0.0000"))
+                .latitude(new BigDecimal("0.0000")).build()).build();
 
         WebTestClient.bindToServer()
             .baseUrl("http://localhost:" + serverPort).build()
@@ -92,9 +96,9 @@ public class BookingControllerIntegrationTest {
         given()
             .body(booking)
             .contentType("application/json")
-        .when()
+            .when()
             .post("/api/bookings/" + property.getName())
-        .then()
+            .then()
             .statusCode(201);
 
         final Booking[] bookings = when()

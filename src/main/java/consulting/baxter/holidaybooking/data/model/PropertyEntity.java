@@ -4,11 +4,12 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "properties")
 @NoArgsConstructor
+@EqualsAndHashCode
+@ToString
 public class PropertyEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,33 +25,19 @@ public class PropertyEntity {
     @Setter
     private String address;
 
+    @Column(nullable = false)
+    @Getter
+    @Setter
+    private EmbeddableGeoLocation location;
+
     @OneToMany(mappedBy = "property")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private List<BookingEntity> bookings;
 
-    public PropertyEntity(String name, String address) {
+    public PropertyEntity(String name, String address, EmbeddableGeoLocation location) {
         this.name = name;
         this.address = address;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof PropertyEntity)) return false;
-        PropertyEntity that = (PropertyEntity) o;
-        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(address, that.address);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, address);
-    }
-
-    @Override
-    public String toString() {
-        return "PropertyEntity{" +
-            "id=" + id +
-            ", name='" + name + '\'' +
-            ", address='" + address + '\'' +
-            '}';
+        this.location = location;
     }
 }

@@ -1,3 +1,10 @@
+export interface Location {
+  longitude: number,
+  latitude: number
+}
+
 export interface Property {
-  name: string
+  name: string,
+  address: string,
+  location: Location
 }

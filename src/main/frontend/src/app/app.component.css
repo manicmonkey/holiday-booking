@@ -9,6 +9,21 @@ h2 {
   font-weight: bolder;
 }
 
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
 .propertyName {
   color: #506f66;
 }

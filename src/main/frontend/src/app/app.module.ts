@@ -14,12 +14,14 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule, MatOptionModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
+import { PropertyMapComponent } from './property-map/property-map.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PropertyListComponent,
     AvailabilityListComponent,
+    PropertyMapComponent,
   ],
   imports: [
     BrowserModule,

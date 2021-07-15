@@ -11,11 +11,12 @@ import lombok.extern.jackson.Jacksonized;
 public class Property {
     String name;
     String address;
+    GeoLocation location;
 
     public static Property from(PropertyEntity propertyEntity) {
-        return new Property(propertyEntity.getName(), propertyEntity.getAddress());
+        return new Property(propertyEntity.getName(), propertyEntity.getAddress(), GeoLocation.from(propertyEntity.getLocation()));
     }
     public PropertyEntity toNew() {
-        return new PropertyEntity(name, address);
+        return new PropertyEntity(name, address, location.toEmbeddable());
     }
 }

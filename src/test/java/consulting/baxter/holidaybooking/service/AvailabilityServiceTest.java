@@ -3,6 +3,7 @@ package consulting.baxter.holidaybooking.service;
 import consulting.baxter.holidaybooking.data.BookingDao;
 import consulting.baxter.holidaybooking.data.model.BookingEntity;
 import consulting.baxter.holidaybooking.data.model.EmbeddableDateRange;
+import consulting.baxter.holidaybooking.data.model.EmbeddableGeoLocation;
 import consulting.baxter.holidaybooking.data.model.PropertyEntity;
 import consulting.baxter.holidaybooking.rest.model.AvailableDay;
 import lombok.val;
@@ -10,6 +11,7 @@ import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
@@ -22,7 +24,7 @@ import static org.mockito.Mockito.when;
 
 public class AvailabilityServiceTest {
 
-    private static final PropertyEntity dummyProperty = new PropertyEntity("dummyProperty", "dummyAddress");
+    private static final PropertyEntity dummyProperty = new PropertyEntity("dummyProperty", "dummyAddress", new EmbeddableGeoLocation(BigDecimal.valueOf(1), BigDecimal.valueOf(1)));
 
     @Test
     void checksDateNotInPast() {

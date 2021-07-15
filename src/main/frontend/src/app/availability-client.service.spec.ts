@@ -25,7 +25,7 @@ describe('AvailabilityClientServiceImpl', () => {
 
   it('should get availability from the backend', () => {
     //given
-    const property = { name: 'property' }
+    const property = {name: 'test-property', address: 'test-address', location: { longitude: 0, latitude: 0}};
     const checkIn = '2021-08-01';
     const checkOut = '2021-08-02';
     const testResponse = Array({date: checkIn, rate: 'AUD 250.00'});

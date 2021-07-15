@@ -49,7 +49,7 @@ describe('AppComponent', () => {
 
 class MockPropertiesClientService implements PropertiesClientService {
   get(): Observable<Array<Property>> {
-    return of(Array({name: 'test-property'}));
+    return of(Array({name: 'test-property', address: 'test-address', location: { longitude: 0, latitude: 0}}));
   }
 }
 
