@@ -24,6 +24,11 @@ h2 {
   flex-direction: column;
 }
 
+.address {
+  font-size: 20px;
+  color: #506f66;
+}
+
 .propertyName {
   color: #506f66;
 }

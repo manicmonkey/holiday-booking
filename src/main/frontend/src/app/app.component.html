@@ -14,7 +14,7 @@
           </property-list>
         </mat-select>
       </mat-form-field>
-      <div style="flex-basis: content">
+      <div>
         <mat-form-field appearance="fill">
           <mat-label>When do you want to stay?</mat-label>
           <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
@@ -30,7 +30,14 @@
       </div>
     </div>
 
-    <app-property-map [property]="selectedProperty" [propertyFocusZoomLevel]="10"></app-property-map>
+    <div style="padding-left: 20px">
+      <app-property-map [property]="selectedProperty" [propertyFocusZoomLevel]="10"></app-property-map>
+    </div>
+
+    <div *ngIf="selectedProperty" style="padding-left: 20px">
+      <span class="address">Address</span>
+      <p>{{selectedProperty.address}}</p>
+    </div>
 
   </div>
 
