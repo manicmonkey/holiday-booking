@@ -12,9 +12,10 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatDatepickerModule} from "@angular/material/datepicker";
-import {MatNativeDateModule, MatOptionModule} from "@angular/material/core";
+import {MatOptionModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
-import { PropertyMapComponent } from './property-map/property-map.component';
+import {PropertyMapComponent} from './property-map/property-map.component';
+import {MatLuxonDateModule} from "ngx-material-luxon";
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ import { PropertyMapComponent } from './property-map/property-map.component';
     MatFormFieldModule,
     MatDatepickerModule,
     ReactiveFormsModule,
-    MatNativeDateModule,
+    MatLuxonDateModule,
     MatSelectModule,
     MatOptionModule
   ],

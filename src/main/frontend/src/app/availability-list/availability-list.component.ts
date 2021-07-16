@@ -14,8 +14,8 @@ export class AvailabilityListComponent implements OnChanges {
   }
 
   @Input() property?: Property
-  @Input() checkIn?: Date
-  @Input() checkOut?: Date
+  @Input() checkIn?: DateTime
+  @Input() checkOut?: DateTime
 
   availability: Array<AvailableDay> = Array()
 
@@ -24,7 +24,7 @@ export class AvailabilityListComponent implements OnChanges {
   ngOnChanges(): void {
     if (this.property && this.checkIn && this.checkOut)
       this.availabilityClient
-        .get(this.property, DateTime.fromJSDate(this.checkIn).toISODate(), DateTime.fromJSDate(this.checkOut).toISODate())
+        .get(this.property, this.checkIn.toISODate(), this.checkOut.toISODate())
         .subscribe(availableDays => {
           this.availability = availableDays;
         });
