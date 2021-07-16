@@ -14,6 +14,12 @@ export class PropertyMapComponent implements OnChanges {
   @Input()
   property?: Property;
 
+  @Input()
+  defaultZoomLevel: number = 6
+
+  @Input()
+  propertyFocusZoomLevel: number = 8
+
   map?: Map;
 
   ngOnInit(): void {
@@ -28,7 +34,7 @@ export class PropertyMapComponent implements OnChanges {
         center: fromLonLat(this.property
           ? [this.property.location.longitude, this.property.location.latitude]
           : [this.defaultMapCenter.longitude, this.defaultMapCenter.latitude]),
-        zoom: 6
+        zoom: this.defaultZoomLevel
       })
     });
   }
@@ -43,7 +49,7 @@ export class PropertyMapComponent implements OnChanges {
 
     const view = this.map.getView();
     view.setCenter(fromLonLat([this.property.location.longitude, this.property.location.latitude]))
-    view.setZoom(10);
+    view.setZoom(this.propertyFocusZoomLevel);
   }
 
 }
