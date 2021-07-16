@@ -8,8 +8,6 @@ import {FormControl, FormGroup} from "@angular/forms";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor() {
-  }
   title = 'Holiday Booking';
   selectedProperty?: Property;
 

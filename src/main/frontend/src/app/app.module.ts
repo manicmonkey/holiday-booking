@@ -12,7 +12,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatDatepickerModule} from "@angular/material/datepicker";
-import {MatOptionModule} from "@angular/material/core";
+import {MAT_DATE_LOCALE, MatOptionModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
 import {PropertyMapComponent} from './property-map/property-map.component';
 import {MatLuxonDateModule} from "ngx-material-luxon";
@@ -38,6 +38,9 @@ import {MatLuxonDateModule} from "ngx-material-luxon";
     MatOptionModule
   ],
   providers: [{
+    provide: MAT_DATE_LOCALE,
+    useValue: navigator.language
+  }, {
     provide: PropertiesClientService,
     useClass: PropertiesClientServiceImpl
   }, {
