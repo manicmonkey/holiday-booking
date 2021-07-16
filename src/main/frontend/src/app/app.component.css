@@ -1,12 +1,11 @@
 h1 {
   color: #273927;
-  font-weight: bolder;
   font-size: 24px;
 }
 
 h2 {
   color: #4d6f4d;
-  font-weight: bolder;
+  font-size: 20px;
 }
 
 .container {
@@ -25,8 +24,8 @@ h2 {
 }
 
 .address {
-  font-size: 20px;
   color: #506f66;
+  font-size: 20px;
 }
 
 .propertyName {
