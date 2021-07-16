@@ -5,6 +5,11 @@ import OSM = source.OSM;
 import Tile = layer.Tile;
 import fromLonLat = proj.fromLonLat;
 
+export interface LonLat {
+  longitude: number,
+  latitude: number
+}
+
 @Component({
   selector: 'app-property-map',
   templateUrl: './property-map.component.html'
@@ -19,6 +24,12 @@ export class PropertyMapComponent implements OnChanges {
 
   @Input()
   propertyFocusZoomLevel: number = 8
+
+  @Input()
+  defaultMapCenter: LonLat = {
+    longitude: 0.1218,
+    latitude: 52.2053
+  }
 
   map?: Map;
 
@@ -37,11 +48,6 @@ export class PropertyMapComponent implements OnChanges {
         zoom: this.defaultZoomLevel
       })
     });
-  }
-
-  private readonly defaultMapCenter = {
-    longitude: 0.1218,
-    latitude: 52.2053
   }
 
   ngOnChanges(changes: SimpleChanges): void {
