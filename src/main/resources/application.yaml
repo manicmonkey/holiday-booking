@@ -13,7 +13,7 @@ spring:
   jmx:
     enabled: true
   jpa:
-    open-in-view:
+    open-in-view: true
 logging:
   level:
     root: "info"
