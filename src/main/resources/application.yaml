@@ -12,6 +12,8 @@ spring:
     clean-disabled: true
   jmx:
     enabled: true
+  jpa:
+    open-in-view:
 logging:
   level:
     root: "info"
