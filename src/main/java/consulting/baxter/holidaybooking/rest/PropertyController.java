@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
-@RequestMapping("/properties")
+@RequestMapping("/api/properties")
 public class PropertyController {
 
     private final PropertyDao propertyDao;

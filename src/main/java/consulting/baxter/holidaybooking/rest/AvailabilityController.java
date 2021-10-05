@@ -17,7 +17,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/availability")
+@RequestMapping("/api/availability")
 public class AvailabilityController {
     private final AvailabilityService availabilityService;
     private final PropertyDao propertyDao;

@@ -6,7 +6,7 @@ app:
     pool-size: 10
 server:
   servlet:
-    contextPath: /api
+    contextPath: /
 spring:
   flyway:
     clean-disabled: true
@@ -17,8 +17,7 @@ spring:
 logging:
   level:
     root: "info"
-    org:
-      springframework:
+    org.springframework:
         jdbc: "info"
         data: "info"
     org.flywaydb: "info"

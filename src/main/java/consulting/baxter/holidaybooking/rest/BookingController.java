@@ -19,7 +19,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/bookings")
+@RequestMapping("/api/bookings")
 public class BookingController {
 
     private static final Logger log = LoggerFactory.getLogger(BookingController.class);
