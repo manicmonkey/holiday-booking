@@ -29,7 +29,7 @@
 <a class="jxr_linenumber" name="19" href="#19">19</a>  <strong class="jxr_keyword">import</strong> java.util.stream.Collectors;
 <a class="jxr_linenumber" name="20" href="#20">20</a>  
 <a class="jxr_linenumber" name="21" href="#21">21</a>  @RestController
-<a class="jxr_linenumber" name="22" href="#22">22</a>  @RequestMapping(<span class="jxr_string">"/bookings"</span>)
+<a class="jxr_linenumber" name="22" href="#22">22</a>  @RequestMapping(<span class="jxr_string">"/api/bookings"</span>)
 <a class="jxr_linenumber" name="23" href="#23">23</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../consulting/baxter/holidaybooking/rest/BookingController.html">BookingController</a> {
 <a class="jxr_linenumber" name="24" href="#24">24</a>  
 <a class="jxr_linenumber" name="25" href="#25">25</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Logger log = LoggerFactory.getLogger(BookingController.<strong class="jxr_keyword">class</strong>);
@@ -77,7 +77,7 @@
 <a class="jxr_linenumber" name="67" href="#67">67</a>          <strong class="jxr_keyword">return</strong> bookings.stream().map(Booking::from).collect(Collectors.toList());
 <a class="jxr_linenumber" name="68" href="#68">68</a>      }
 <a class="jxr_linenumber" name="69" href="#69">69</a>  
-<a class="jxr_linenumber" name="70" href="#70">70</a>      enum <a href="../../../../consulting/baxter/holidaybooking/rest/AvailabilityController.html">Failure</a> {
+<a class="jxr_linenumber" name="70" href="#70">70</a>      enum <a href="../../../../consulting/baxter/holidaybooking/rest/BookingController.html">Failure</a> {
 <a class="jxr_linenumber" name="71" href="#71">71</a>          PROPERTY_NOT_FOUND
 <a class="jxr_linenumber" name="72" href="#72">72</a>      }
 <a class="jxr_linenumber" name="73" href="#73">73</a>  }
