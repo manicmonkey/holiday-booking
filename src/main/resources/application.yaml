@@ -2,8 +2,7 @@ app:
   datasource:
     jdbc-url: "jdbc:postgresql:holidaybooking"
     username: "postgres"
-    # todo use an explicit dev profile and prod secrets injection asap
-    password: "mysecretpassword"
+    password: "${env.POSTGRES_PASSWORD}"
     pool-size: 10
 server:
   servlet:

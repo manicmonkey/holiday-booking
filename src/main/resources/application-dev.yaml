@@ -1,0 +1,5 @@
+app:
+  datasource:
+    jdbc-url: "jdbc:h2:mem:holidaybooking;DB_CLOSE_DELAY=-1"
+    username: "sa"
+    password: "sa"
