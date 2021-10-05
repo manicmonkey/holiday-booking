@@ -1,9 +1,11 @@
 package consulting.baxter.holidaybooking.rest;
 
-import consulting.baxter.holidaybooking.InsertDummyData;
+import consulting.baxter.holidaybooking.data.CustomerDao;
+import consulting.baxter.holidaybooking.data.model.CustomerEntity;
 import consulting.baxter.holidaybooking.rest.model.*;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.DynamicPropertyRegistry;
@@ -30,6 +32,11 @@ public class BookingControllerIntegrationTest {
 
     private static final DockerImageName POSTGRES_IMAGE_NAME = DockerImageName.parse("postgres:13.3");
 
+    private static final CustomerEntity CUSTOMER = CustomerEntity.builder()
+        .name("Jessica Hyde")
+        .email("utopia@ch4.co.uk")
+        .address("124 Horseferry Road, London, England").build();
+
     @Container
     static PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>(POSTGRES_IMAGE_NAME);
 
@@ -40,12 +47,25 @@ public class BookingControllerIntegrationTest {
         registry.add("app.datasource.password", postgreSQLContainer::getPassword);
     }
 
+    @Autowired
+    private CustomerDao customerDao;
+
     @LocalServerPort
     private int serverPort;
 
     @BeforeEach
     public void setupRestAssured() {
         RestAssured.port = serverPort;
+    }
+
+    @BeforeEach
+    public void insertTestCustomer() {
+        customerDao.save(CUSTOMER);
+    }
+
+    @AfterEach
+    public void removeTestCustomer() {
+        customerDao.delete(customerDao.findByEmail(CUSTOMER.getEmail()));
     }
 
     @Test
@@ -61,7 +81,7 @@ public class BookingControllerIntegrationTest {
     @Test
     void cantCreateBookingForUnknownProperty() {
         final Property unknownProperty = Property.builder().name("unknown").build();
-        final Customer customer = Customer.from(InsertDummyData.customer);
+        final Customer customer = Customer.from(CUSTOMER);
         final DateRange dateRange = DateRange.builder().from(LocalDate.now()).to(LocalDate.now().plus(1, WEEKS)).build();
         final Booking booking = Booking.builder().property(unknownProperty).customer(customer).dateRange(dateRange).build();
         given()
@@ -90,7 +110,7 @@ public class BookingControllerIntegrationTest {
             .exchange()
             .expectStatus().isCreated();
 
-        final Customer customer = Customer.from(InsertDummyData.customer);
+        final Customer customer = Customer.from(CUSTOMER);
         final DateRange dateRange = DateRange.builder().from(LocalDate.now()).to(LocalDate.now().plus(1, WEEKS)).build();
         final Booking booking = Booking.builder().property(property).customer(customer).dateRange(dateRange).build();
         given()
